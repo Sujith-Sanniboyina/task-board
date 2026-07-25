@@ -1,6 +1,6 @@
 import TaskCard from './TaskCard'
 
-function Column({ title, tasks }) {
+function Column({ title, tasks, onAddTask }) {
   return (
     <div className="bg-gray-100 rounded-xl p-3 w-72 flex-shrink-0">
       <div className="flex items-center justify-between mb-3 px-1">
@@ -19,6 +19,13 @@ function Column({ title, tasks }) {
           tasks.map((task) => <TaskCard key={task.id} task={task} />)
         )}
       </div>
+
+      <button
+        onClick={onAddTask}
+        className="w-full mt-2 text-xs text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg py-2 transition-colors"
+      >
+        + Add task
+      </button>
     </div>
   )
 }

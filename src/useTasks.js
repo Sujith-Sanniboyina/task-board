@@ -30,5 +30,20 @@ export function useTasks(userId) {
     fetchTasks()
   }, [userId])
 
-  return { tasks, loading, error, setTasks }
+  async function insertTask(newTask) {
+    const { data, error } = await supabase
+      .from('tasks')
+      .insert(newTask)
+      .select()
+      .single()
+
+    if (error) {
+      return { error: error.message }
+    }
+
+    setTasks((prev) => [...prev, data])
+    return { data }
+  }
+
+  return { tasks, loading, error, setTasks, insertTask }
 }
