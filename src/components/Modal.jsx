@@ -5,7 +5,7 @@ function Modal({ onClose, children }) {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-xl w-full max-w-md p-6"
+        className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 mx-4"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

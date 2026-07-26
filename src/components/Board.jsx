@@ -2,7 +2,7 @@ import { DragDropContext } from '@hello-pangea/dnd'
 import { COLUMNS } from '../constants'
 import Column from './Column'
 
-function Board({ tasks, onAddTask, onDragEnd }) {
+function Board({ tasks, onAddTask, onDragEnd, isFiltering }) {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="flex gap-4 overflow-x-auto p-6">
@@ -15,6 +15,7 @@ function Board({ tasks, onAddTask, onDragEnd }) {
               title={col.title}
               tasks={columnTasks}
               onAddTask={() => onAddTask(col.id)}
+              isFiltering={isFiltering}
             />
           )
         })}
