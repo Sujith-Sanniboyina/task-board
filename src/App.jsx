@@ -6,7 +6,7 @@ import NewTaskModal from './components/NewTaskModal'
 
 function App() {
   const { userId, loading: sessionLoading } = useGuestSession()
-  const { tasks, loading: tasksLoading, error, insertTask } = useTasks(userId)
+  const { tasks, loading: tasksLoading, error, insertTask, updateTaskStatus } = useTasks(userId)
   const [modalStatus, setModalStatus] = useState(null) // null = closed
 
   if (sessionLoading || tasksLoading) {
@@ -29,6 +29,20 @@ function App() {
     return insertTask({ ...newTask, user_id: userId })
   }
 
+  function handleDragEnd(result) {
+    const { destination, source, draggableId } = result
+
+    if (!destination) return
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return
+    }
+
+    if (destination.droppableId !== source.droppableId) {
+      updateTaskStatus(draggableId, destination.droppableId)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="px-6 py-4 border-b border-gray-200 bg-white flex items-center justify-between">
@@ -41,7 +55,7 @@ function App() {
         </button>
       </header>
 
-      <Board tasks={tasks} onAddTask={setModalStatus} />
+      <Board tasks={tasks} onAddTask={setModalStatus} onDragEnd={handleDragEnd} />
 
       {modalStatus && (
         <NewTaskModal

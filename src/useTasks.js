@@ -45,5 +45,23 @@ export function useTasks(userId) {
     return { data }
   }
 
-  return { tasks, loading, error, setTasks, insertTask }
+  async function updateTaskStatus(taskId, newStatus) {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
+    )
+
+    const { error } = await supabase
+      .from('tasks')
+      .update({ status: newStatus })
+      .eq('id', taskId)
+
+    if (error) {
+      console.error('Failed to update task status:', error.message)
+      return { error: error.message }
+    }
+
+    return { success: true }
+  }
+
+  return { tasks, loading, error, setTasks, insertTask, updateTaskStatus }
 }
