@@ -4,6 +4,8 @@ A Kanban-style task management app built with React and Supabase, inspired by th
 
 **Live app:** [task-board-ten-sigma.vercel.app](https://task-board-ten-sigma.vercel.app/)
 
+<img width="800" height="500" alt="demo" src="https://github.com/user-attachments/assets/6f345679-3299-463e-b71a-1c6af23cf630" />
+
 ---
 
 ## Overview
